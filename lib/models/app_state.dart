@@ -13,12 +13,89 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter/material.dart' show MaterialColor, Colors;
 
 import 'package:sqflite/sqflite.dart';
 
 final appStateProvider = ChangeNotifierProvider((ref) {
   return AppState();
 });
+
+enum AppColorScheme { orange, red, purple, blue, green, grey }
+
+String colorEnumToString(AppColorScheme scheme) {
+  String schemeStr;
+  switch (scheme) {
+    case AppColorScheme.orange:
+      schemeStr = 'orange';
+      return schemeStr;
+    case AppColorScheme.red:
+      schemeStr = 'red';
+      return schemeStr;
+    case AppColorScheme.purple:
+      schemeStr = 'purple';
+      return schemeStr;
+    case AppColorScheme.blue:
+      schemeStr = 'blue';
+      return schemeStr;
+    case AppColorScheme.green:
+      schemeStr = 'green';
+      return schemeStr;
+    case AppColorScheme.grey:
+      schemeStr = 'grey';
+      return schemeStr;
+  }
+}
+
+MaterialColor colorStringToMaterialColor(String scheme) {
+  MaterialColor schemeColor;
+  switch (scheme) {
+    case 'orange':
+      schemeColor = Colors.orange;
+      return schemeColor;
+    case 'red':
+      schemeColor = Colors.red;
+      return schemeColor;
+    case 'purple':
+      schemeColor = Colors.purple;
+      return schemeColor;
+    case 'blue':
+      schemeColor = Colors.blue;
+      return schemeColor;
+    case 'green':
+      schemeColor = Colors.green;
+      return schemeColor;
+    case 'grey':
+      schemeColor = Colors.grey;
+      return schemeColor;
+    default:
+      return Colors.orange;
+  }
+}
+
+MaterialColor colorEnumToMaterialColor(AppColorScheme scheme) {
+  MaterialColor schemeColor;
+  switch (scheme) {
+    case AppColorScheme.orange:
+      schemeColor = Colors.orange;
+      return schemeColor;
+    case AppColorScheme.red:
+      schemeColor = Colors.red;
+      return schemeColor;
+    case AppColorScheme.purple:
+      schemeColor = Colors.purple;
+      return schemeColor;
+    case AppColorScheme.blue:
+      schemeColor = Colors.blue;
+      return schemeColor;
+    case AppColorScheme.green:
+      schemeColor = Colors.green;
+      return schemeColor;
+    case AppColorScheme.grey:
+      schemeColor = Colors.grey;
+      return schemeColor;
+  }
+}
 
 class AppState with ChangeNotifier {
   TabState tabState = TabState();
@@ -41,7 +118,9 @@ class AppState with ChangeNotifier {
       "homepage":
           (prefs.getString("homepage") ?? "gemini://gemini.circumlunar.space/"),
       "search":
-          (prefs.getString("search") ?? "gemini://geminispace.info/search")
+          (prefs.getString("search") ?? "gemini://geminispace.info/search"),
+      "colorscheme": (prefs.getString("search") ??
+          colorEnumToString(AppColorScheme.orange))
     };
     updateFeeds();
     final Database db = database;
@@ -64,6 +143,7 @@ class AppState with ChangeNotifier {
       settings.remove(key);
       prefs.remove(key);
     }
+    notifyListeners();
   }
 
   void addRecent(String uriString) async {

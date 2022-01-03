@@ -95,7 +95,8 @@ class Home extends ConsumerWidget {
               ? Colors.deepOrange
               : Theme.of(context).canvasColor,
           appBar: AppBar(
-              backgroundColor: Colors.orange,
+              backgroundColor: colorStringToMaterialColor(
+                  appState.settings["colorscheme"]), //Colors.orange,
               title: AddressBar(
                 focusNode: _focusNode,
                 controller: _controller,

@@ -53,6 +53,35 @@ class Settings extends DirectoryElement {
                   appState.onSaveSettings("search", s);
                 },
               ),
+              Row(children: <Widget>[
+                DropdownButton<String>(
+                  value: appState.settings["colorscheme"],
+                  icon: const Icon(Icons.arrow_downward),
+                  elevation: 16,
+                  style: TextStyle(
+                      color: Theme.of(context).textTheme.bodyText1!.color),
+                  //underline: Container(
+                  //  height: 2,
+                  //  color: Theme.of(context).buttonTheme.colorScheme!.primary,
+                  //),
+                  onChanged: (s) {
+                    appState.onSaveSettings("colorscheme", s!);
+                  },
+                  items: <String>[
+                    colorEnumToString(AppColorScheme.orange),
+                    colorEnumToString(AppColorScheme.red),
+                    colorEnumToString(AppColorScheme.purple),
+                    colorEnumToString(AppColorScheme.blue),
+                    colorEnumToString(AppColorScheme.green),
+                    colorEnumToString(AppColorScheme.grey),
+                  ].map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                )
+              ])
             ]))),
       )
     ];

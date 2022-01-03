@@ -34,7 +34,8 @@ class AddressBar extends ConsumerWidget {
         controller.text = next.currentUri().toString();
       }
     });
-    var background = Colors.orange[300];
+    var background = colorStringToMaterialColor(
+        appState.settings["colorscheme"])[300]; //Colors.orange[300];
     var identity = appState.currentIdentity();
     if (appState.currentLoading()) {
       background = Colors.green[300];

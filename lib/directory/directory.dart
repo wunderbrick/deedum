@@ -1,7 +1,9 @@
 import 'package:deedum/directory/directory_element.dart';
 import 'package:flutter/material.dart';
+import 'package:deedum/models/app_state.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class Directory extends StatefulWidget {
+class Directory extends ConsumerStatefulWidget {
   final List<DirectoryElement> children;
   final List<IconData> icons;
 
@@ -15,7 +17,7 @@ class Directory extends StatefulWidget {
   _DirectoryState createState() => _DirectoryState();
 }
 
-class _DirectoryState extends State<Directory>
+class _DirectoryState extends ConsumerState<Directory>
     with SingleTickerProviderStateMixin {
   final controllerKey = const GlobalObjectKey("tabcontroller");
 
@@ -44,6 +46,7 @@ class _DirectoryState extends State<Directory>
 
   @override
   Widget build(BuildContext context) {
+    final AppState appState = ref.watch(appStateProvider);
     var title = widget.children[_activeTabIndex].title;
     return GestureDetector(
         onTap: () {
@@ -56,7 +59,8 @@ class _DirectoryState extends State<Directory>
         child: Scaffold(
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           appBar: AppBar(
-            backgroundColor: Colors.orange,
+            backgroundColor: colorStringToMaterialColor(
+                appState.settings["colorscheme"]), //Colors.green,
             centerTitle: true,
             title: Text(title,
                 textScaleFactor: 1.15,
