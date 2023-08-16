@@ -9,7 +9,6 @@ class PlainText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ExtendedText(content,
-        selectionEnabled: true,
         style: const TextStyle(fontWeight: FontWeight.w400, height: 1.5));
   }
 }

@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:typed_data';
-
 import 'package:basic_utils/basic_utils.dart';
+import 'package:asn1lib/asn1lib.dart';
 
 class Identity {
   final String name;
@@ -11,6 +11,13 @@ class Identity {
   late final String privateKeyString;
   late final Map<String, String?> subject;
   final List<String> pages = [];
+
+  Uint8List convertStringToUint8List(String str) {
+    final List<int> codeUnits = str.codeUnits;
+    final Uint8List unit8List = Uint8List.fromList(codeUnits);
+
+    return unit8List;
+  }
 
   Identity(this.name,
       {days = 365000,
@@ -23,9 +30,12 @@ class Identity {
       var x509 = X509Utils.x509CertificateFromPem(certString);
 
       subject = x509.subject.entries.fold({}, (accum, entry) {
-        var a = ASN1ObjectIdentifier.fromIdentifierString(entry.key);
-        if (entry.value != null && a.readableName != null) {
-          accum[a.readableName!] = entry.value;
+        // TODO
+        var a =
+            ASN1ObjectIdentifier.fromBytes(convertStringToUint8List(entry.key));
+
+        if (entry.value != null && a.identifier != null) {
+          accum[a.identifier!] = entry.value;
         }
         return accum;
       });

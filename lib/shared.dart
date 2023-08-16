@@ -1,9 +1,8 @@
 // ignore: unused_import
 import 'dart:developer';
 import 'dart:typed_data';
-
 import 'package:qr/qr.dart';
-
+import 'package:collection/collection.dart';
 import 'package:sqflite/sqlite_api.dart';
 
 String toSchemelessString(Uri? uri) {
@@ -60,11 +59,7 @@ extension CollectionUtil<T> on Iterable<T> {
   }
 
   T? firstOrNull(bool Function(T) test) {
-    try {
-      return firstWhere(test);
-    } catch (e) {
-      return null;
-    }
+    firstWhereOrNull(test);
   }
 }
 
