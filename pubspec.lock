@@ -112,7 +112,7 @@ packages:
       name: extended_text_library
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "8.0.1"
+    version: "8.0.2"
   fake_async:
     dependency: transitive
     description:
@@ -608,7 +608,7 @@ packages:
       path: "."
       ref: "bugfix/WrongCastObjectIdentifier"
       resolved-ref: c6bdd7682a6e4467352eb820129e038d441ac4d1
-      url: "git://github.com/NicolaVerbeeck/x509"
+      url: "https://github.com/NicolaVerbeeck/x509"
     source: git
     version: "0.2.2"
   xdg_directories:

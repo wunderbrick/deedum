@@ -115,8 +115,7 @@ class AppState with ChangeNotifier {
     recents = (prefs.getStringList('recent') ?? []);
 
     settings = {
-      "homepage":
-          (prefs.getString("homepage") ?? "gemini://gemini.circumlunar.space/"),
+      "homepage": (prefs.getString("homepage")),
       "search":
           (prefs.getString("search") ?? "gemini://geminispace.info/search"),
       "colorscheme": (prefs.getString("search") ??
@@ -177,6 +176,9 @@ class AppState with ChangeNotifier {
 
   void onDeleteTab(int dropIndex) {
     tabState.removeIndex(dropIndex);
+    if (tabState.current() == null) {
+      onNewTab(null);
+    }
     notifyListeners();
   }
 
@@ -232,7 +234,7 @@ class AppState with ChangeNotifier {
   }
 
   void onLocation(location) {
-    tabState.current()!.onLocation(location, identities, feeds);
+    tabState.current()?.onLocation(location, identities, feeds);
   }
 
   Uri? currentUri() {
